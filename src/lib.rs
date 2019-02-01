@@ -97,7 +97,11 @@ pub mod global_alloc {
     pub struct GcAlloc;
     unsafe impl GlobalAlloc for GcAlloc {
         unsafe fn alloc(&self,l: Layout) -> *mut u8 {
-            let ptr = gc_memalign(l.size(), l.align());
+            let ptr = if l.size() >= 512 {
+                gc_malloc_many(l.size()) as *mut u8
+            } else {
+                gc_malloc(l.size()) as *mut u8
+            };
 
             if ptr.is_null() {
                 printf(b"failed to allocate memory for layout with size: %i and align %i".as_ptr() as *const i8,l.size(),l.align());
