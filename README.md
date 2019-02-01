@@ -15,13 +15,8 @@ static A: GcAlloc = GcAlloc;
 fn main() {
     gc_enable();
     gc_init();
-    let string = String::from("Hello,world!);
+    let string = String::from("Hello,world!");
 
     println!("{}",string);
 }
-```
-
-
-```
-
 ```
