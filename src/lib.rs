@@ -1,8 +1,12 @@
+#![no_std]
+
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 
-include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+pub mod bindings;
+
+use self::bindings::*;
 
 ///! Rust interface to BoehmGC
 ///!
@@ -10,7 +14,7 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 ///!
 
 
-
+pub use core as std;
 
 /// Enable GC
 pub fn gc_enable() {
@@ -82,7 +86,7 @@ pub fn gc_collect() {
 ///
 /// ```
 pub mod global_alloc {
-    use std::alloc::{GlobalAlloc,Layout};
+    use core::alloc::{GlobalAlloc,Layout};
 
     use super::*;
 
