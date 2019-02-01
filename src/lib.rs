@@ -90,6 +90,8 @@ pub mod global_alloc {
     unsafe impl GlobalAlloc for GcAlloc {
         unsafe fn alloc(&self, l: Layout) -> *mut u8 {
             let ptr = gc_malloc(l.size());
+            ptr
+        }
         unsafe fn dealloc(&self, _ptr: *mut u8, _: Layout) {
             //GC_free(ptr as *mut _); do nothing?
         }
