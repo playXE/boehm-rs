@@ -98,7 +98,7 @@ pub mod global_alloc {
     unsafe impl GlobalAlloc for GcAlloc {
         unsafe fn alloc(&self,l: Layout) -> *mut u8 {
             let ptr = if l.size() >= 512 {
-                gc_malloc_many(l.size()) as *mut u8
+                GC_malloc_many(l.size()) as *mut u8
             } else {
                 gc_malloc(l.size()) as *mut u8
             };
