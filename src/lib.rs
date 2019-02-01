@@ -97,7 +97,7 @@ pub mod global_alloc {
         }
 
         unsafe fn realloc(&self,ptr: *mut u8,_: Layout,new_size: usize) -> *mut u8 {
-            gc_realloc(ptr,new_Size)
+            gc_realloc(ptr,new_size)
         }
     }
 
