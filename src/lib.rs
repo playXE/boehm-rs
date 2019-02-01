@@ -1,5 +1,4 @@
 #![no_std]
-
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
@@ -12,8 +11,6 @@ use self::bindings::*;
 ///!
 ///! This crate provides FFI with BoehmGC and Global allocator that uses this GC
 ///!
-
-
 pub use core as std;
 
 /// Enable GC
@@ -36,31 +33,27 @@ pub fn gc_disable() {
 }
 /// Allocates memory, doesn't checks ptr is null
 pub unsafe fn gc_malloc(size: usize) -> *mut u8 {
-    return GC_malloc(size) as *mut u8
+    return GC_malloc(size) as *mut u8;
 }
 
 /// Allocates memory,if ptr is null panics
 pub fn gc_alloc(size: usize) -> std::ptr::NonNull<u8> {
-    let ptr =  unsafe {gc_malloc(size)};
+    let ptr = unsafe { gc_malloc(size) };
     if ptr.is_null() {
-        panic!("Failed to allocate memory with size {}",size);
+        panic!("Failed to allocate memory with size {}", size);
     }
 
     return std::ptr::NonNull::new(ptr).unwrap();
 }
 
 /// Reallocate memory
-pub fn gc_realloc(ptr: *mut u8,size: usize) -> *mut u8 {
-    return unsafe {
-        GC_realloc(ptr as *mut _,size,) as *mut u8
-    }
+pub fn gc_realloc(ptr: *mut u8, size: usize) -> *mut u8 {
+    return unsafe { GC_realloc(ptr as *mut _, size) as *mut u8 };
 }
 
 /// Allocate memory with some size and align
-pub fn gc_memalign(size: usize,align: usize) -> *mut u8 {
-    return unsafe {
-        GC_memalign(size,align) as *mut u8
-    }
+pub fn gc_memalign(size: usize, align: usize) -> *mut u8 {
+    return unsafe { GC_memalign(size, align) as *mut u8 };
 }
 /// Collect garbage
 pub fn gc_collect() {
@@ -68,7 +61,6 @@ pub fn gc_collect() {
         GC_gcollect();
     }
 }
-
 
 /// Global allocator that uses BoehmGC for allocating
 ///
@@ -86,25 +78,33 @@ pub fn gc_collect() {
 ///
 /// ```
 pub mod global_alloc {
-    use core::alloc::{GlobalAlloc,Layout};
+    use core::alloc::{GlobalAlloc, Layout};
 
     use super::*;
 
-    extern  "C" {
-        fn printf(c: *const i8,...);
+    extern "C" {
+        fn printf(c: *const i8, ...);
     }
 
     pub struct GcAlloc;
     unsafe impl GlobalAlloc for GcAlloc {
-        unsafe fn alloc(&self,l: Layout) -> *mut u8 {
+        unsafe fn alloc(&self, l: Layout) -> *mut u8 {
             let ptr = gc_malloc(l.size());
             if ptr.is_null() {
-                printf(b"failed to allocate memory for layout with size: %i and align %i".as_ptr() as *const i8,l.size(),l.align());
+                printf(
+                    b"failed to allocate memory for layout with size: %i and align %i".as_ptr()
+                        as *const i8,
+                    l.size(),
+                    l.align(),
+                );
             }
             return ptr;
         }
-        unsafe fn dealloc(&self,_ptr: *mut u8,_: Layout) {
+        unsafe fn dealloc(&self, _ptr: *mut u8, _: Layout) {
             //GC_free(ptr as *mut _); do nothing?
         }
     }
+
+    unsafe impl Send for GcAlloc {}
+    unsafe impl Sync for GcAlloc {}
 }

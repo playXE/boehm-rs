@@ -2,8 +2,6 @@
 
 use core as std;
 
-
-
 pub const GC_TMP_VERSION_MAJOR: u32 = 7;
 pub const GC_TMP_VERSION_MINOR: u32 = 6;
 pub const GC_TMP_VERSION_MICRO: u32 = 4;
@@ -107,8 +105,7 @@ extern "C" {
 extern "C" {
     pub fn GC_get_gc_no() -> GC_word;
 }
-pub type GC_oom_func =
-    std::option::Option<unsafe extern "C" fn(arg1: usize) -> *mut u8>;
+pub type GC_oom_func = std::option::Option<unsafe extern "C" fn(arg1: usize) -> *mut u8>;
 extern "C" {
     #[link_name = "\u{1}GC_oom_fn"]
     pub static mut GC_oom_fn: GC_oom_func;
@@ -328,10 +325,7 @@ extern "C" {
     pub fn GC_strdup(arg1: *const u32) -> *mut u32;
 }
 extern "C" {
-    pub fn GC_strndup(
-        arg1: *const u32,
-        arg2: usize,
-    ) -> *mut u32;
+    pub fn GC_strndup(arg1: *const u32, arg2: usize) -> *mut u32;
 }
 extern "C" {
     pub fn GC_malloc_uncollectable(arg1: usize) -> *mut u8;
@@ -343,11 +337,7 @@ extern "C" {
     pub fn GC_memalign(arg1: usize, arg2: usize) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_posix_memalign(
-        arg1: *mut *mut u8,
-        arg2: usize,
-        arg3: usize,
-    ) -> i32;
+    pub fn GC_posix_memalign(arg1: *mut *mut u8, arg2: usize, arg3: usize) -> i32;
 }
 extern "C" {
     pub fn GC_free(arg1: *mut u8);
@@ -368,10 +358,7 @@ extern "C" {
     pub fn GC_size(arg1: *const u8) -> usize;
 }
 extern "C" {
-    pub fn GC_realloc(
-        arg1: *mut u8,
-        arg2: usize,
-    ) -> *mut u8;
+    pub fn GC_realloc(arg1: *mut u8, arg2: usize) -> *mut u8;
 }
 extern "C" {
     pub fn GC_expand_hp(arg1: usize) -> i32;
@@ -380,10 +367,7 @@ extern "C" {
     pub fn GC_set_max_heap_size(arg1: GC_word);
 }
 extern "C" {
-    pub fn GC_exclude_static_roots(
-        arg1: *mut u8,
-        arg2: *mut u8,
-    );
+    pub fn GC_exclude_static_roots(arg1: *mut u8, arg2: *mut u8);
 }
 extern "C" {
     pub fn GC_clear_roots();
@@ -552,8 +536,7 @@ fn bindgen_test_layout_GC_prof_stats_s() {
     );
     assert_eq!(
         unsafe {
-            &(*(std::ptr::null::<GC_prof_stats_s>())).bytes_reclaimed_since_gc as *const _
-                as usize
+            &(*(std::ptr::null::<GC_prof_stats_s>())).bytes_reclaimed_since_gc as *const _ as usize
         },
         64usize,
         concat!(
@@ -565,8 +548,7 @@ fn bindgen_test_layout_GC_prof_stats_s() {
     );
     assert_eq!(
         unsafe {
-            &(*(std::ptr::null::<GC_prof_stats_s>())).reclaimed_bytes_before_gc as *const _
-                as usize
+            &(*(std::ptr::null::<GC_prof_stats_s>())).reclaimed_bytes_before_gc as *const _ as usize
         },
         72usize,
         concat!(
@@ -611,79 +593,37 @@ extern "C" {
     pub fn GC_malloc_atomic_uncollectable(arg1: usize) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_debug_malloc_atomic_uncollectable(
-        arg1: usize,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u8;
+    pub fn GC_debug_malloc_atomic_uncollectable(arg1: usize, s: *const u32, i: i32) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_debug_malloc(
-        arg1: usize,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u8;
+    pub fn GC_debug_malloc(arg1: usize, s: *const u32, i: i32) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_debug_malloc_atomic(
-        arg1: usize,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u8;
+    pub fn GC_debug_malloc_atomic(arg1: usize, s: *const u32, i: i32) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_debug_strdup(
-        arg1: *const u32,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u32;
+    pub fn GC_debug_strdup(arg1: *const u32, s: *const u32, i: i32) -> *mut u32;
 }
 extern "C" {
-    pub fn GC_debug_strndup(
-        arg1: *const u32,
-        arg2: usize,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u32;
+    pub fn GC_debug_strndup(arg1: *const u32, arg2: usize, s: *const u32, i: i32) -> *mut u32;
 }
 extern "C" {
-    pub fn GC_debug_malloc_uncollectable(
-        arg1: usize,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u8;
+    pub fn GC_debug_malloc_uncollectable(arg1: usize, s: *const u32, i: i32) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_debug_malloc_stubborn(
-        arg1: usize,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u8;
+    pub fn GC_debug_malloc_stubborn(arg1: usize, s: *const u32, i: i32) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_debug_malloc_ignore_off_page(
-        arg1: usize,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u8;
+    pub fn GC_debug_malloc_ignore_off_page(arg1: usize, s: *const u32, i: i32) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_debug_malloc_atomic_ignore_off_page(
-        arg1: usize,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u8;
+    pub fn GC_debug_malloc_atomic_ignore_off_page(arg1: usize, s: *const u32, i: i32) -> *mut u8;
 }
 extern "C" {
     pub fn GC_debug_free(arg1: *mut u8);
 }
 extern "C" {
-    pub fn GC_debug_realloc(
-        arg1: *mut u8,
-        arg2: usize,
-        s: *const u32,
-        i: i32,
-    ) -> *mut u8;
+    pub fn GC_debug_realloc(arg1: *mut u8, arg2: usize, s: *const u32, i: i32) -> *mut u8;
 }
 extern "C" {
     pub fn GC_debug_change_stubborn(arg1: *const u8);
@@ -695,14 +635,10 @@ extern "C" {
     pub fn GC_debug_malloc_replacement(arg1: usize) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_debug_realloc_replacement(
-        arg1: *mut u8,
-        arg2: usize,
-    ) -> *mut u8;
+    pub fn GC_debug_realloc_replacement(arg1: *mut u8, arg2: usize) -> *mut u8;
 }
-pub type GC_finalization_proc = std::option::Option<
-    unsafe extern "C" fn(arg1: *mut u8, arg2: *mut u8),
->;
+pub type GC_finalization_proc =
+    std::option::Option<unsafe extern "C" fn(arg1: *mut u8, arg2: *mut u8)>;
 extern "C" {
     pub fn GC_register_finalizer(
         arg1: *mut u8,
@@ -776,50 +712,32 @@ extern "C" {
     );
 }
 extern "C" {
-    pub fn GC_register_disappearing_link(
-        arg1: *mut *mut u8,
-    ) -> i32;
+    pub fn GC_register_disappearing_link(arg1: *mut *mut u8) -> i32;
 }
 extern "C" {
-    pub fn GC_general_register_disappearing_link(
-        arg1: *mut *mut u8,
-        arg2: *const u8,
-    ) -> i32;
+    pub fn GC_general_register_disappearing_link(arg1: *mut *mut u8, arg2: *const u8) -> i32;
 }
 extern "C" {
-    pub fn GC_move_disappearing_link(
-        arg1: *mut *mut u8,
-        arg2: *mut *mut u8,
-    ) -> i32;
+    pub fn GC_move_disappearing_link(arg1: *mut *mut u8, arg2: *mut *mut u8) -> i32;
 }
 extern "C" {
-    pub fn GC_unregister_disappearing_link(
-        arg1: *mut *mut u8,
-    ) -> i32;
+    pub fn GC_unregister_disappearing_link(arg1: *mut *mut u8) -> i32;
 }
 extern "C" {
-    pub fn GC_register_long_link(
-        arg1: *mut *mut u8,
-        arg2: *const u8,
-    ) -> i32;
+    pub fn GC_register_long_link(arg1: *mut *mut u8, arg2: *const u8) -> i32;
 }
 extern "C" {
-    pub fn GC_move_long_link(
-        arg1: *mut *mut u8,
-        arg2: *mut *mut u8,
-    ) -> i32;
+    pub fn GC_move_long_link(arg1: *mut *mut u8, arg2: *mut *mut u8) -> i32;
 }
 extern "C" {
-    pub fn GC_unregister_long_link(arg1: *mut *mut u8)
-        -> i32;
+    pub fn GC_unregister_long_link(arg1: *mut *mut u8) -> i32;
 }
 pub const GC_ToggleRefStatus_GC_TOGGLE_REF_DROP: GC_ToggleRefStatus = 0;
 pub const GC_ToggleRefStatus_GC_TOGGLE_REF_STRONG: GC_ToggleRefStatus = 1;
 pub const GC_ToggleRefStatus_GC_TOGGLE_REF_WEAK: GC_ToggleRefStatus = 2;
 pub type GC_ToggleRefStatus = u32;
-pub type GC_toggleref_func = std::option::Option<
-    unsafe extern "C" fn(arg1: *mut u8) -> GC_ToggleRefStatus,
->;
+pub type GC_toggleref_func =
+    std::option::Option<unsafe extern "C" fn(arg1: *mut u8) -> GC_ToggleRefStatus>;
 extern "C" {
     pub fn GC_set_toggleref_func(arg1: GC_toggleref_func);
 }
@@ -827,13 +745,9 @@ extern "C" {
     pub fn GC_get_toggleref_func() -> GC_toggleref_func;
 }
 extern "C" {
-    pub fn GC_toggleref_add(
-        arg1: *mut u8,
-        arg2: i32,
-    ) -> i32;
+    pub fn GC_toggleref_add(arg1: *mut u8, arg2: i32) -> i32;
 }
-pub type GC_await_finalize_proc =
-    std::option::Option<unsafe extern "C" fn(arg1: *mut u8)>;
+pub type GC_await_finalize_proc = std::option::Option<unsafe extern "C" fn(arg1: *mut u8)>;
 extern "C" {
     pub fn GC_set_await_finalize_proc(arg1: GC_await_finalize_proc);
 }
@@ -846,8 +760,7 @@ extern "C" {
 extern "C" {
     pub fn GC_invoke_finalizers() -> i32;
 }
-pub type GC_warn_proc =
-    std::option::Option<unsafe extern "C" fn(arg1: *mut u32, arg2: GC_word)>;
+pub type GC_warn_proc = std::option::Option<unsafe extern "C" fn(arg1: *mut u32, arg2: GC_word)>;
 extern "C" {
     pub fn GC_set_warn_proc(arg1: GC_warn_proc);
 }
@@ -860,8 +773,7 @@ extern "C" {
 extern "C" {
     pub fn GC_set_log_fd(arg1: i32);
 }
-pub type GC_abort_func =
-    std::option::Option<unsafe extern "C" fn(arg1: *const u32)>;
+pub type GC_abort_func = std::option::Option<unsafe extern "C" fn(arg1: *const u32)>;
 extern "C" {
     pub fn GC_set_abort_func(arg1: GC_abort_func);
 }
@@ -869,14 +781,9 @@ extern "C" {
     pub fn GC_get_abort_func() -> GC_abort_func;
 }
 pub type GC_hidden_pointer = GC_word;
-pub type GC_fn_type = std::option::Option<
-    unsafe extern "C" fn(arg1: *mut u8) -> *mut u8,
->;
+pub type GC_fn_type = std::option::Option<unsafe extern "C" fn(arg1: *mut u8) -> *mut u8>;
 extern "C" {
-    pub fn GC_call_with_alloc_lock(
-        arg1: GC_fn_type,
-        arg2: *mut u8,
-    ) -> *mut u8;
+    pub fn GC_call_with_alloc_lock(arg1: GC_fn_type, arg2: *mut u8) -> *mut u8;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -906,58 +813,34 @@ fn bindgen_test_layout_GC_stack_base() {
         )
     );
 }
-pub type GC_stack_base_func = std::option::Option<
-    unsafe extern "C" fn(
-        arg1: *mut GC_stack_base,
-        arg2: *mut u8,
-    ) -> *mut u8,
->;
+pub type GC_stack_base_func =
+    std::option::Option<unsafe extern "C" fn(arg1: *mut GC_stack_base, arg2: *mut u8) -> *mut u8>;
 extern "C" {
-    pub fn GC_call_with_stack_base(
-        arg1: GC_stack_base_func,
-        arg2: *mut u8,
-    ) -> *mut u8;
+    pub fn GC_call_with_stack_base(arg1: GC_stack_base_func, arg2: *mut u8) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_do_blocking(
-        arg1: GC_fn_type,
-        arg2: *mut u8,
-    ) -> *mut u8;
+    pub fn GC_do_blocking(arg1: GC_fn_type, arg2: *mut u8) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_call_with_gc_active(
-        arg1: GC_fn_type,
-        arg2: *mut u8,
-    ) -> *mut u8;
+    pub fn GC_call_with_gc_active(arg1: GC_fn_type, arg2: *mut u8) -> *mut u8;
 }
 extern "C" {
     pub fn GC_get_stack_base(arg1: *mut GC_stack_base) -> i32;
 }
 extern "C" {
-    pub fn GC_same_obj(
-        arg1: *mut u8,
-        arg2: *mut u8,
-    ) -> *mut u8;
+    pub fn GC_same_obj(arg1: *mut u8, arg2: *mut u8) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_pre_incr(
-        arg1: *mut *mut u8,
-        arg2: isize,
-    ) -> *mut u8;
+    pub fn GC_pre_incr(arg1: *mut *mut u8, arg2: isize) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_post_incr(
-        arg1: *mut *mut u8,
-        arg2: isize,
-    ) -> *mut u8;
+    pub fn GC_post_incr(arg1: *mut *mut u8, arg2: isize) -> *mut u8;
 }
 extern "C" {
     pub fn GC_is_visible(arg1: *mut u8) -> *mut u8;
 }
 extern "C" {
-    pub fn GC_is_valid_displacement(
-        arg1: *mut u8,
-    ) -> *mut u8;
+    pub fn GC_is_valid_displacement(arg1: *mut u8) -> *mut u8;
 }
 extern "C" {
     pub fn GC_dump();
@@ -970,9 +853,8 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}GC_same_obj_print_proc"]
-    pub static mut GC_same_obj_print_proc: std::option::Option<
-        unsafe extern "C" fn(arg1: *mut u8, arg2: *mut u8),
-    >;
+    pub static mut GC_same_obj_print_proc:
+        std::option::Option<unsafe extern "C" fn(arg1: *mut u8, arg2: *mut u8)>;
 }
 extern "C" {
     #[link_name = "\u{1}GC_is_valid_displacement_print_proc"]
@@ -987,13 +869,8 @@ extern "C" {
 extern "C" {
     pub fn GC_malloc_many(arg1: usize) -> *mut u8;
 }
-pub type GC_has_static_roots_func = std::option::Option<
-    unsafe extern "C" fn(
-        arg1: *const u32,
-        arg2: *mut u8,
-        arg3: usize,
-    ) -> i32,
->;
+pub type GC_has_static_roots_func =
+    std::option::Option<unsafe extern "C" fn(arg1: *const u32, arg2: *mut u8, arg3: usize) -> i32>;
 extern "C" {
     pub fn GC_register_has_static_roots_callback(arg1: GC_has_static_roots_func);
 }
