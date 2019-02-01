@@ -40,13 +40,13 @@ pub unsafe fn gc_malloc(size: usize) -> *mut u8 {
 }
 
 /// Allocates memory,if ptr is null panics
-pub fn gc_alloc(size: usize) -> *mut u8 {
+pub fn gc_alloc(size: usize) -> std::ptr::NonNull<u8> {
     let ptr =  unsafe {gc_malloc(size)};
     if ptr.is_null() {
         panic!("Failed to allocate memory with size {}",size);
     }
 
-    return ptr;
+    return std::ptr::NonNull::new(ptr).unwrap();
 }
 
 /// Reallocate memory
@@ -97,12 +97,7 @@ pub mod global_alloc {
     pub struct GcAlloc;
     unsafe impl GlobalAlloc for GcAlloc {
         unsafe fn alloc(&self,l: Layout) -> *mut u8 {
-            let ptr = if l.size() >= 512 {
-                GC_malloc_many(l.size()) as *mut u8
-            } else {
-                gc_malloc(l.size()) as *mut u8
-            };
-
+            let ptr = gc_malloc(l.size());
             if ptr.is_null() {
                 printf(b"failed to allocate memory for layout with size: %i and align %i".as_ptr() as *const i8,l.size(),l.align());
             }
