@@ -1,0 +1,11 @@
+[package]
+name = "boehm-rs"
+version = "0.1.0"
+authors = ["playx"]
+edition = "2018"
+
+[dependencies]
+libc = "0.2"
+[build-dependencies]
+bindgen = "0.47.1"
+
