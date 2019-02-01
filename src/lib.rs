@@ -93,7 +93,11 @@ pub mod global_alloc {
             ptr
         }
         unsafe fn dealloc(&self, _ptr: *mut u8, _: Layout) {
-            //GC_free(ptr as *mut _); do nothing?
+            //do nothing?
+        }
+
+        unsafe fn realloc(&self,ptr: *mut u8,_: Layout,new_size: usize) -> *mut u8 {
+            gc_realloc(ptr,new_Size)
         }
     }
 
